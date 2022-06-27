@@ -8,6 +8,10 @@ app.use(function (req, res, next) {
     console.log("this is middleware");
     next();
 });
+app.get('/cats/blue', function (req, res, next) {
+    console.log('blue middle ware');
+    next();
+});
 app.get('/', function (req, res) {
     res.send(app_model_1.Cats);
 });

@@ -10,6 +10,13 @@ app.use((req, res, next) => {
   next();
 })
 
+//use라고 안 하고, HTTP 메서드라도 next 파라미터만 주면 같은 기능을 만들 수 있다. 이 경우 /cats/blue 엔드포인트에 대해
+//use 미들웨어, get미들웨어, get라우터 순으로 실행된다.
+app.get('/cats/blue', (req, res, next) => {
+  console.log('blue middle ware');
+  next();
+})
+
 app.get('/', (req: express.Request, res: express.Response) => {
   res.send(Cats);
 })
