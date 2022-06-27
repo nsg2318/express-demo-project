@@ -18,6 +18,10 @@ app.get('/', function (req, res) {
 app.get('/cats/blue', function (req, res) {
     res.send(app_model_1.Cats[0]);
 });
+app.use(function (req, res, next) {
+    console.log('아무 라우터도 찾지 못했습니다.');
+    res.send('아무 라우터도 찾지 못했습니다.');
+});
 app.listen(8000, function () {
     console.log('server is on ...');
 });

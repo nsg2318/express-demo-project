@@ -25,6 +25,10 @@ app.get('/cats/blue', (req, res) => {
   res.send(Cats[0]);
 })
 
+app.use((req,res,next) => {
+  console.log('아무 라우터도 찾지 못했습니다.');
+  res.send('아무 라우터도 찾지 못했습니다.');
+})
 app.listen(8000, () => {
   console.log('server is on ...');
 });
