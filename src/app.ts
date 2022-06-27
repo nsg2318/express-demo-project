@@ -3,31 +3,55 @@ import {Cats, Cat} from './app.model';
 
 const app: express.Express = express();
 
-//미들 웨어 인터셉팅 같은 기능. Express는 위에서부터 찾으므로, app.use 가 중간 또는 아래에 있으면 그 위의 라우터에는 작동하지 않는다.
+//logging
 app.use((req, res, next) => {
   console.log(req.rawHeaders[1]);
   console.log(`this is middleware`);
   next();
 })
 
-//use라고 안 하고, HTTP 메서드라도 next 파라미터만 주면 같은 기능을 만들 수 있다. 이 경우 /cats/blue 엔드포인트에 대해
-//use 미들웨어, get미들웨어, get라우터 순으로 실행된다.
-app.get('/cats/blue', (req, res, next) => {
-  console.log('blue middle ware');
-  next();
+app.post("/cats",(req: express.Request, res: express.Response) => {
+  try {
+    //이렇게 body 가져올 수 있어보이지만, express에서는 body 가져오려면 미들웨어 추가해야한다.
+    const body = req.body;
+    console.log(body.businessNumber);
+    res.send('성공');
+  } catch (error) {
+    console.log('aa');
+  }
 })
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send(Cats);
+app.get("/cats",(req: express.Request, res: express.Response) => {
+  try {
+    const cats: Cat[] = Cats;
+    res.status(200).send({
+      success: true,
+      data: {
+        cats,
+      }
+    }); 
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+    })
+  }
+  
 })
 
-app.get('/cats/blue', (req, res) => {
-  res.send(Cats[0]);
+app.get("/cats/:id",(req: express.Request, res: express.Response) => {
+  const id: string = req.params.id;
+  const cat = Cats.find((cat) => {return cat.id === id});
+  res.status(200).send({
+    success: true,
+    data: {
+      cat,
+    }
+  })
 })
 
 app.use((req,res,next) => {
-  console.log('아무 라우터도 찾지 못했습니다.');
-  res.send('아무 라우터도 찾지 못했습니다.');
+  res.send({error: '라우터를 찾지 못하였습니다.'});
 })
 app.listen(8000, () => {
   console.log('server is on ...');
