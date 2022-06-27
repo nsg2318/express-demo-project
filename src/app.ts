@@ -10,12 +10,24 @@ app.use((req, res, next) => {
   next();
 })
 
+app.use(express.json());
+
 app.post("/cats",(req: express.Request, res: express.Response) => {
   try {
     //이렇게 body 가져올 수 있어보이지만, express에서는 body 가져오려면 미들웨어 추가해야한다.
     const body = req.body;
-    console.log(body.businessNumber);
-    res.send('성공');
+    const id: string = body.id;
+    const name: string = body.name;
+    const newCat: Cat = {
+      id: id,
+      name: name,
+      age: 99,
+      species: 'ETC',
+      isCute: true,
+      friends: ['abcd']
+    }
+    Cats.push(newCat);
+    res.send(newCat);
   } catch (error) {
     console.log('aa');
   }

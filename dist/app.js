@@ -8,11 +8,22 @@ app.use(function (req, res, next) {
     console.log("this is middleware");
     next();
 });
+app.use(express.json());
 app.post("/cats", function (req, res) {
     try {
         var body = req.body;
-        console.log(body.businessNumber);
-        res.send('성공');
+        var id = body.id;
+        var name_1 = body.name;
+        var newCat = {
+            id: id,
+            name: name_1,
+            age: 99,
+            species: 'ETC',
+            isCute: true,
+            friends: ['abcd']
+        };
+        app_model_1.Cats.push(newCat);
+        res.send(newCat);
     }
     catch (error) {
         console.log('aa');
