@@ -113,9 +113,14 @@ router.delete("/cats/:id",(req,res)=> {
   try {
     const param = req.params;
     const newCat = Cats.filter((cat)=> cat.id !== param.id);
+    const id: string = req.params.id;
+    const cat = Cats.find((cat)=> {return cat.id === id}); 
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+    })
   }
-  const id: string = req.params.id;
-  const cat = Cats.find((cat)=> {return cat.id === id});
 })
 
 //등록된 라우터 export
