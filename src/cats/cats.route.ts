@@ -55,10 +55,67 @@ router.get("/cats/:id",(req: express.Request, res: express.Response) => {
   })
 })
 
+router.put("/cats/:id", (req,res) => {
+  try {
+    const param: {id: string} = req.params;
+    const body = req.body;
+    let result;
+    Cats.forEach((cat) => {
+      if(cat.id === param.id) {
+        cat = body;
+        result = cat;
+      }
+    })
+    const cat = Cats.find((cat) => {return cat.id === param.id});
+    res.status(200).send({
+      success: true,
+      data: {
+        cat: result, 
+      },
+    })
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+    })
+  }
+})
+
+router.patch("/cats/:id", (req,res) => {
+  try {
+    const param: {id: string} = req.params;
+    const body = req.body;
+    let result;
+    Cats.forEach((cat) => {
+      if(cat.id === param.id) {
+        //구조 분해 할당 기존 키에서 중복되는 부분 value값을 바꿔준다.
+        cat = { ...cat, ...body};
+        result = cat;
+      }
+    })
+    const cat = Cats.find((cat) => {return cat.id === param.id});
+    res.status(200).send({
+      success: true,
+      data: {
+        cat: result, 
+      },
+    })
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+    })
+  }
+})
+
+
 router.delete("/cats/:id",(req,res)=> {
+  try {
+    const param = req.params;
+    const newCat = Cats.filter((cat)=> cat.id !== param.id);
+  }
   const id: string = req.params.id;
   const cat = Cats.find((cat)=> {return cat.id === id});
-  // 미완성. . .
 })
 
 //등록된 라우터 export

@@ -50,6 +50,32 @@ router.get("/cats/:id", function (req, res) {
         }
     });
 });
+router.put("/cats/:id", function (req, res) {
+    try {
+        var param_1 = req.params;
+        var body_1 = req.body;
+        var result_1;
+        cats_model_1.Cats.forEach(function (cat) {
+            if (cat.id === param_1.id) {
+                cat = body_1;
+                result_1 = cat;
+            }
+        });
+        var cat = cats_model_1.Cats.find(function (cat) { return cat.id === param_1.id; });
+        res.status(200).send({
+            success: true,
+            data: {
+                cat: result_1,
+            },
+        });
+    }
+    catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+        });
+    }
+});
 router.delete("/cats/:id", function (req, res) {
     var id = req.params.id;
     var cat = cats_model_1.Cats.find(function (cat) { return cat.id === id; });
