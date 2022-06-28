@@ -11,6 +11,7 @@ class Server {
   }
 
   private setRoute() {
+    this.app.use(express.json());
     this.app.use(catsRouter);
   }
 
@@ -21,9 +22,7 @@ class Server {
     console.log(`this is middleware`);
     next();
   })
-  
-  this.app.use(express.json());
-  
+    
   this.app.use((req,res,next) => {
     res.send({error: '라우터를 찾지 못하였습니다.'});
   })

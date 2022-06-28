@@ -8,6 +8,7 @@ var Server = (function () {
         this.app = app;
     }
     Server.prototype.setRoute = function () {
+        this.app.use(express.json());
         this.app.use(cats_route_1.default);
     };
     Server.prototype.setMiddleware = function () {
@@ -16,7 +17,6 @@ var Server = (function () {
             console.log("this is middleware");
             next();
         });
-        this.app.use(express.json());
         this.app.use(function (req, res, next) {
             res.send({ error: '라우터를 찾지 못하였습니다.' });
         });
