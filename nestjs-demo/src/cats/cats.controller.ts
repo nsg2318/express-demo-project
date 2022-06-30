@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
   Patch,
   Post,
@@ -19,6 +20,7 @@ export class CatsController {
 
   @Get()
   getAllCat() {
+    throw new HttpException('api is broken', 404);
     return 'all cat';
   }
 
