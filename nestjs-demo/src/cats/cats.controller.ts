@@ -12,7 +12,7 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { HttpExceptionFilter } from 'src/commons/exceptions/http-exception.filter';
 import { PositiveIntPipe } from 'src/commons/positiveInt.pipe';
 
 @Controller('cats')
