@@ -18,6 +18,8 @@ import { PositiveIntPipe } from 'src/commons/positiveInt.pipe';
 import { SuccessInterceptor } from 'src/commons/interceptors/success.interceptor';
 
 @Controller('cats')
+@UseFilters(HttpExceptionFilter)
+@UseInterceptors(SuccessInterceptor)
 export class CatsController {
   private readonly catsService: CatsService;
 
@@ -26,35 +28,28 @@ export class CatsController {
   }
 
   @Get()
-  @UseFilters(HttpExceptionFilter)
-  @UseInterceptors(SuccessInterceptor)
-  getAllCat() {
-    return { cats: 'all cat' };
-  }
-
-  @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe, PositiveIntPipe) param) {
-    console.log(typeof param);
-    return param;
+  getCurrentCat() {
+    return { cats: 'current cat' };
   }
 
   @Post()
-  createCat() {
-    return 'create cat';
+  async signUp() {
+    return 'signup';
   }
 
-  @Put(':id')
-  updateCat() {
-    return 'update cat';
+  @Post('login')
+  logIn() {
+    return 'login';
   }
 
-  @Patch(':id')
-  updatePartialCat() {
-    return 'update part';
+  @Post('logout')
+  logOut() {
+    return 'logOut';
   }
 
-  @Delete(':id')
-  deleteCat() {
-    return 'delete';
+  @Post('upload/cats')
+  uploadImg() {
+    return 'upload';
   }
+
 }
