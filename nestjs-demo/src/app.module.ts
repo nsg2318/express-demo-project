@@ -1,11 +1,13 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
+import { typeORMConfig } from './commons/configs/typeorm.config';
 import { LoggerMiddleware } from './commons/middlewares/logger.middleware';
 
 @Module({
-  imports: [CatsModule],
+  imports: [CatsModule, TypeOrmModule.forRoot(typeORMConfig)],
   controllers: [AppController],
   providers: [AppService],
 })
