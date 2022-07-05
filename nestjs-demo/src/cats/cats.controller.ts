@@ -1,4 +1,3 @@
-import { CatsService } from './cats.service';
 import {
   Body,
   Controller,
@@ -19,6 +18,7 @@ import { PositiveIntPipe } from 'src/commons/positiveInt.pipe';
 import { SuccessInterceptor } from 'src/commons/interceptors/success.interceptor';
 import { Any } from 'typeorm';
 import { CatRequestDto } from './dto/cats.request.dto';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 @UseFilters(HttpExceptionFilter)
@@ -36,8 +36,8 @@ export class CatsController {
   }
 
   @Post()
-  async signUp(@Body() catRequestDto: CatRequestDto) {
-    this.catsService.signUp(catRequestDto);
+  async signUp(@Body() catRequestDto: CatRequestDto): Promise<any> {
+    return await this.catsService.signUp(catRequestDto);
   }
 
   @Post('login')
