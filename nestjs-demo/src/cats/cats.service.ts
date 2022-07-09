@@ -22,7 +22,7 @@ export class CatsService {
 
   async signUp(catRequestDto: CatRequestDto): Promise<Cat> {
     const { email, name, password } = catRequestDto;
-    const createddate: string = Date.now().toString();
+    const createDdate: string = Date.now().toString();
     // const catOne = await this.catRepository.findOne(email);
     // if(catOne !== null){
     //   throw new HttpException(`already exists. catOne = ${catOne}`,403);
@@ -32,7 +32,7 @@ export class CatsService {
     // const hashedPassword = await bycript
 
     const cat: Cat = this.catRepository.create({
-      email,name,password, createddate
+      email,name,password, createdDate
     });
 
     this.catRepository.save(cat);
