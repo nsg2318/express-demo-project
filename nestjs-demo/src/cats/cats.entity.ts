@@ -17,5 +17,7 @@ export class Cat extends BaseEntity {
 
   imgUrl: string;
 
+  @Column()
+  createddate: string;
   
 }
