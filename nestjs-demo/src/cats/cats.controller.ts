@@ -1,26 +1,13 @@
 import {
   Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Put,
-  UseFilters,
-  UseInterceptors,
+  Controller, Get, Post, UseFilters,
+  UseInterceptors
 } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/commons/exceptions/http-exception.filter';
-import { PositiveIntPipe } from 'src/commons/positiveInt.pipe';
-import { SuccessInterceptor } from 'src/commons/interceptors/success.interceptor';
-import { Any } from 'typeorm';
-import { CatRequestDto } from './dto/cats.request.dto';
-import { CatsService } from './cats.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Cat } from './cats.entity';
+import { HttpExceptionFilter } from 'src/commons/exceptions/http-exception.filter';
+import { SuccessInterceptor } from 'src/commons/interceptors/success.interceptor';
+import { CatsService } from './cats.service';
+import { CatRequestDto } from './dto/cats.request.dto';
 import { ReadOnlyCatDto } from './dto/cats.response.dto';
 
 @Controller('cats')

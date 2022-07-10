@@ -1,45 +1,27 @@
-import { HttpException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { Cat } from './cats.entity';
+import { CatsRepository } from './cats.repository';
 import { CatRequestDto } from './dto/cats.request.dto';
 
 @Injectable()
 export class CatsService {
 
-  constructor(
-    @InjectRepository(Cat)
-    private catRepository: Repository<Cat>,
-  ) {}
+  private readonly catsRepository: CatsRepository;
 
-  // 왜 이렇게는 안되는 지
-  // @InjectRepository(Cat)
-  // private readonly catRepository: Repository<Cat>;
-
-  // constructor(catResitory: Repository<Cat>) {
-  //   this.catRepository = catResitory;
-  // }
+  constructor(catsRepository: CatsRepository) {
+    this.catsRepository = catsRepository;
+  }
 
   async signUp(catRequestDto: CatRequestDto): Promise<Cat> {
-    const { email, name, password } = catRequestDto;
-    const createdDate: string = Date.now().toString();
-    // const catOne = await this.catRepository.findOne(email);
-    // if(catOne !== null){
-    //   throw new HttpException(`already exists. catOne = ${catOne}`,403);
-    // }
 
-    // install error! 
-    // const hashedPassword = await bycript
+    const aBool = await this.catsRepository.existsByEmail("aa@aa.com");
+    console.log(aBool);
 
-    const cat: Cat = this.catRepository.create({
-      email,name,password, createdDate
-    });
-
-    this.catRepository.save(cat);
-
+    const cat = this.catsRepository.save(catRequestDto);
     return cat;
   }
   public getHelloCats(): string {
     return 'hello cats world~!';
   }
+
 }
