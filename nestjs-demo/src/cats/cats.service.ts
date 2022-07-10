@@ -22,7 +22,7 @@ export class CatsService {
 
   async signUp(catRequestDto: CatRequestDto): Promise<Cat> {
     const { email, name, password } = catRequestDto;
-    const createDdate: string = Date.now().toString();
+    const createdDate: string = Date.now().toString();
     // const catOne = await this.catRepository.findOne(email);
     // if(catOne !== null){
     //   throw new HttpException(`already exists. catOne = ${catOne}`,403);
