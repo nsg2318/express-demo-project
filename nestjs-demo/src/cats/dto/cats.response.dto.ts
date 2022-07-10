@@ -1,25 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PickType } from "@nestjs/swagger";
+import { Cat } from "../cats.entity";
 
-export class ReadOnlyCatDto {
-    
+export class ReadOnlyCatDto extends PickType(Cat,['email','name' as const]){
     @ApiProperty({
-        example: 'aa@naver.com',
-        description: 'email 주소',
-        required: true,
+        example: '3280199',
+        description: 'id',
     })
-    email: string;
-
-    @ApiProperty({
-        example: 'iamkind',
-        description: '비밀번호',
-        required: true,
-    })
-    password: string;
-
-    @ApiProperty({
-        example: 'sunba',
-        description: '이름',
-        required: true,
-    })
-    name: string;
+    id: string;
 }
