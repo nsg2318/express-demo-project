@@ -30,5 +30,9 @@ export class CatsRepository {
 
         return this.catRepository.save(cat);
     }
+
+    async findByEmail(email: string): Promise<Cat> {
+        return await this.catRepository.findOne({where: {email: `${email}`}});
+    }
 }
 

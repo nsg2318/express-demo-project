@@ -15,9 +15,11 @@ import { ReadOnlyCatDto } from './dto/cats.response.dto';
 @UseInterceptors(SuccessInterceptor)
 export class CatsController {
   private readonly catsService: CatsService;
+  // private readonly authService: AuthService;
 
   constructor(catsService: CatsService) {
     this.catsService = catsService;
+    // this.authService = authService;
   }
 
   @Get()
