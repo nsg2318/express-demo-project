@@ -11,6 +11,9 @@ export class CatsRepository {
         private catRepository: Repository<Cat>,
       ) {}
 
+
+    // async findById(catId: string)
+
     async existsByEmail(email: string): Promise<boolean> {
         const result = await this.catRepository.findOne({where: {email: `${email}`}});
         console.log(`결과는 = ${result}`);

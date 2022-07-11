@@ -5,7 +5,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Cat extends BaseEntity {
   
   @PrimaryGeneratedColumn()
-  id: BigInteger; 
+  id: string; 
   
   @ApiProperty({
     example: 'aa@naver.com',

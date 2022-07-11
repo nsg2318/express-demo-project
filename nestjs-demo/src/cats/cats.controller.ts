@@ -1,11 +1,13 @@
 import {
   Body,
   Controller, Get, Post, UseFilters,
+  UseGuards,
   UseInterceptors
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { HttpExceptionFilter } from 'src/commons/exceptions/http-exception.filter';
 import { SuccessInterceptor } from 'src/commons/interceptors/success.interceptor';
 import { CatsService } from './cats.service';
@@ -24,6 +26,8 @@ export class CatsController {
     this.authService = authService;
   }
 
+  //가드(인증처리) 사용
+  @UseGuards(JwtAuthGuard)
   @Get()
   getCurrentCat() {
     return { cats: 'current cat' };
